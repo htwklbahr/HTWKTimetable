@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "HTWKTimetable"
 include(":androidApp")
 include(":shared")
+include(":shared:utils:calendar")

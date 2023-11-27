@@ -1,17 +1,14 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
-    alias(libs.plugins.androidLibrary)
 }
 
 kotlin {
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
+
+    val exportedModules: List<Project> = listOf(
+        project(":shared:utils:calendar"),
+    )
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -25,23 +22,15 @@ kotlin {
         framework {
             baseName = "shared"
             isStatic = true
+            exportedModules.forEach { module ->
+                export(module)
+            }
         }
     }
-    
-    sourceSets {
-        commonMain.dependencies {
-            //put your multiplatform dependencies here
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-    }
-}
 
-android {
-    namespace = "com.lb.htwktimetable"
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 24
+    sourceSets {
+        iosMain.dependencies {
+            exportedModules.forEach { module -> api(module) }
+        }
     }
 }

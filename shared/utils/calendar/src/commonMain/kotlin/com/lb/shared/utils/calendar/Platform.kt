@@ -1,4 +1,4 @@
-package com.lb.htwktimetable
+package com.lb.shared.utils.calendar
 
 interface Platform {
     val name: String

@@ -39,7 +39,9 @@ android {
 }
 
 dependencies {
-    implementation(projects.shared)
+    // KMP modules
+    implementation(projects.shared.utils.calendar)
+
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)

@@ -22,3 +22,8 @@ object LocalDateExt {
         return LocalDateTime.now().toString()
     }
 }
+
+class LocalTimeUtil(
+    val hour: Int,
+    val minute: Int
+)

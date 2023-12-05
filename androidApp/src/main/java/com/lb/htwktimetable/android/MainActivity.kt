@@ -31,10 +31,10 @@ fun GreetingView(text: String) {
     Text(text = text)
 }
 
-@Preview
+@Preview(showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    MyApplicationTheme {
+    Surface(modifier = Modifier.fillMaxSize()) {
         GreetingView("Hello, Android!")
     }
 }

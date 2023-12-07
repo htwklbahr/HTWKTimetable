@@ -10,20 +10,8 @@ object LocalDateExt {
         return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
     }
 
-    fun LocalDateTime.Companion.now(): LocalDateTime {
-        return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-    }
-
-    fun LocalDate.Companion.now(): LocalDate {
-        return LocalDateTime.now().date
-    }
-
-    fun LocalTime.Companion.now(): LocalTime {
-        return LocalDateTime.now().time
-    }
-
     fun formatDate(): String {
-        return LocalDateTime.now().toString()
+        return now().toString()
     }
 
     /**
@@ -35,32 +23,59 @@ object LocalDateExt {
     }
 
     /**
-     * Extension function that returns the days of the week the date is in.
-     * @return days of the week as list
+     * Extension function that maps a [LocalDate] to custom [Date] class.
      */
-    fun LocalDate.getDaysOfWeek(): List<LocalDate> {
-        val firstDay = this.minus(this.dayOfWeek.isoDayNumber - 1, DateTimeUnit.DAY)
-        val week = mutableListOf(firstDay)
-        for (i in 1..6) {
-            week.add(firstDay.plus(DatePeriod(days = i)))
-        }
-        return week
+    fun LocalDate.mapToDate() = Date(
+        day = this.dayOfMonth,
+        month = YearMonth(this),
+        year = year,
+    )
+
+    /**
+     * Extension function that maps a [Date] to custom [LocalDate] class.
+     */
+    fun Date.mapToLocalDate() = LocalDate(
+        year = year,
+        monthNumber = month.monthNr,
+        dayOfMonth = day,
+    )
+
+    fun isLeapYear(year: Int): Boolean {
+        val prolepticYear: Long = year.toLong()
+        return prolepticYear and 3 == 0L && (prolepticYear % 100 != 0L || prolepticYear % 400 == 0L)
     }
 
-    fun getWeek(): YearWeek {
-        val days = mutableListOf<Int>()
-        now().getDaysOfWeek().forEach {
-            days.add(it.dayOfMonth)
-        }
-        return (YearWeek(now().monthNumber, days))
+
+
+    /**
+     * Function that gets the current week.
+     * @return [YearWeek]
+     */
+    fun getCurrentWeek(): YearWeek {
+        return YearWeek.getByLocalDate(LocalDate(2023, 1, 1))
+    }
+
+    fun getWeek1(): YearWeek {
+        return YearWeek.getByLocalDate(LocalDate(2022, 12, 31))
+    }
+
+    fun getWeek2(): YearWeek {
+        return YearWeek.getByLocalDate(LocalDate(2022, 12, 25))
+    }
+
+    fun getWeek3(): YearWeek {
+        return YearWeek.getByLocalDate(LocalDate(2022, 12, 26))
+    }
+
+    fun getWeek4(): YearWeek {
+        return YearWeek.getByLocalDate(LocalDate(2024, 2, 29))
+    }
+
+    fun getWeek5(): YearWeek {
+        return YearWeek.getByLocalDate(LocalDate(2024, 12, 30))
     }
 
 }
-
-class YearWeek(
-    val month: Int,
-    val days: List<Int>
-)
 
 class LocalTimeUtil(
     val hour: Int,

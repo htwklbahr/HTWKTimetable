@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LessonCard(modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 2.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Cyan)
     ) {
         Column(

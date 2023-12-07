@@ -11,6 +11,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
+import com.lb.shared.utils.calendar.LocalDateExt
+import com.lb.shared.utils.calendar.LocalDateExt.getDaysOfWeek
+import com.lb.shared.utils.calendar.LocalDateExt.getWeek
 
 private val weekDays = listOf(
     "Montag",
@@ -21,6 +24,8 @@ private val weekDays = listOf(
     "Samstag",
     "Sonntag"
 )
+
+val week = LocalDateExt.getWeek()
 
 @Composable
 fun Header(modifier: Modifier = Modifier) {
@@ -35,7 +40,7 @@ fun Header(modifier: Modifier = Modifier) {
         }
         LazyRow(verticalAlignment = Alignment.CenterVertically) {
             items(weekDays) { day ->
-                HeaderItem(day, Modifier.fillParentMaxWidth(1 / 7f))
+                HeaderItem(day, week.days[weekDays.indexOf(day)], Modifier.fillParentMaxWidth(1 / 7f))
             }
         }
     }
@@ -44,6 +49,7 @@ fun Header(modifier: Modifier = Modifier) {
 @Composable
 private fun HeaderItem(
     day: String,
+    date: Int,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -61,7 +67,7 @@ private fun HeaderItem(
         ) {
             Text(text = day.take(2), fontSize = 12.sp)
             Text(
-                text = "12",
+                text = date.toString(),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )

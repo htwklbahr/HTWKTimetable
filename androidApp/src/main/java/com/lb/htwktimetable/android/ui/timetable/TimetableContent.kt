@@ -76,7 +76,9 @@ private fun WekkdayColumns() {
                         .height(704.dp)
                         .background(Color.LightGray)
                 )
-                Lessons(day)
+                Box {
+                    Lessons(day)
+                }
             }
 
         }
@@ -94,7 +96,11 @@ private fun calculatePosition(startTime: LocalTimeUtil): Double {
 @Composable
 private fun Lessons(day: Int) {
     LessonCard(modifier = Modifier
-        .padding(start = 2.dp, end = 2.dp, top = calculatePosition(LocalTimeUtil(13, 30)) * hourHeight + 8.dp)
+        .padding(top = calculatePosition(LocalTimeUtil(13, 30)) * hourHeight + 8.dp)
+        .height(1.5 * hourHeight)
+    )
+    LessonCard(modifier = Modifier
+        .padding(top = calculatePosition(LocalTimeUtil(9, 30)) * hourHeight + 8.dp)
         .height(1.5 * hourHeight)
     )
 }

@@ -38,7 +38,7 @@ fun TimetableState.TopBar(
             modifier = Modifier.wrapContentSize()
         ) {
             Text(
-                text = "${week?.days?.first()?.month?.name} ${week?.year}",
+                text = "${week?.days?.first()?.month?.name} ${week?.days?.first()?.year}",
                 fontSize = 18.sp
             )
             Icon(

@@ -50,7 +50,7 @@ object LocalDateExt {
      * @return [YearWeek]
      */
     fun getCurrentWeek(): YearWeek {
-        return YearWeek.getByLocalDate(LocalDate(2023, 12, 31))
+        return YearWeek.getByLocalDate(now())
     }
 
     /**

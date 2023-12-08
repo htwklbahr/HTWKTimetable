@@ -46,23 +46,45 @@ object LocalDateExt {
     }
 
     /**
+     * Function that gets the number of calender weeks of a year dependent on 1st Jan. and leap year.
+     * @param [year]
+     * @return 52 or 53
+     */
+    internal fun lastCalendarWeek(year: Int): Int {
+        val firstDayOfYear = LocalDate(year, 1, 1)
+        return if (isLeapYear(year)) {
+            if (firstDayOfYear.dayOfWeek.isoDayNumber == 3 || firstDayOfYear.dayOfWeek.isoDayNumber == 4) 53
+            else 52
+        } else {
+            if (firstDayOfYear.dayOfWeek.isoDayNumber == 4) 53
+            else 52
+        }
+    }
+
+    /**
      * Function that gets the current week.
      * @return [YearWeek]
      */
     fun getCurrentWeek(): YearWeek {
-        return YearWeek.getByLocalDate(LocalDate(2023, 12, 31))
+        return YearWeek.getByLocalDate(now())
     }
 
     /**
      * Function that gets a week by it's calendar week number and year.
      * @return [YearWeek]
      */
-    fun getWeekByNr(): YearWeek {
-        return YearWeek.getByCalendarWeek(52, 2023)
+    fun getWeekByNr(calendarWeek: Int, year: Int): YearWeek {
+        return when (calendarWeek) {
+            0 -> YearWeek.getByCalendarWeek(lastCalendarWeek(year - 1), year - 1)
+            53 -> {
+                if (lastCalendarWeek(year) == 53)
+                    YearWeek.getByCalendarWeek(calendarWeek, year)
+                else YearWeek.getByCalendarWeek(1, year + 1)
+            }
+
+            else -> YearWeek.getByCalendarWeek(calendarWeek, year)
+        }
     }
-
-
-
 }
 
 class LocalTimeUtil(

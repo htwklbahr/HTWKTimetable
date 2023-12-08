@@ -1,6 +1,6 @@
 package com.lb.shared.utils.calendar
 
-import com.lb.shared.utils.calendar.LocalDateExt.isLeapYear
+import com.lb.shared.utils.calendar.LocalDateExt.lastCalendarWeek
 import com.lb.shared.utils.calendar.LocalDateExt.mapToDate
 import kotlinx.datetime.*
 
@@ -92,22 +92,6 @@ data class YearWeek(
                 }
 
                 else -> firstDayOfWeek
-            }
-        }
-
-        /**
-         * Function that gets the number of calender weeks of a year dependent on 1st Jan. and leap year.
-         * @param [year]
-         * @return 52 or 53
-         */
-        private fun lastCalendarWeek(year: Int): Int {
-            val firstDayOfYear = LocalDate(year, 1, 1)
-            return if (isLeapYear(year)) {
-                if (firstDayOfYear.dayOfWeek.isoDayNumber == 3 || firstDayOfYear.dayOfWeek.isoDayNumber == 4) 53
-                else 52
-            } else {
-                if (firstDayOfYear.dayOfWeek.isoDayNumber == 4) 53
-                else 52
             }
         }
 

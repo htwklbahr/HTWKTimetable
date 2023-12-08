@@ -4,6 +4,8 @@ import com.lb.shared.utils.calendar.YearWeek
 
 data class TimetableState(
     val week: YearWeek? = null,
+    val prevWeek: YearWeek? = null,
+    val nextWeek: YearWeek? = null,
     val weekDays: List<String> = listOf(
         "Montag",
         "Dienstag",
@@ -12,5 +14,5 @@ data class TimetableState(
         "Freitag",
         "Samstag",
         "Sonntag"
-    )
+    ),
 )

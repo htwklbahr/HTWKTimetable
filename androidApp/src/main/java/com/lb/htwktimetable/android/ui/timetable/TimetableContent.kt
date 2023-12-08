@@ -8,7 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.*
-import com.lb.shared.utils.calendar.*
+import com.lb.htwktimetable.android.ui.timetable.state.TimetableState
+import com.lb.shared.utils.calendar.LocalTimeUtil
 
 private val hours = buildList {
     for (i in 7..22) {
@@ -24,10 +25,17 @@ private val days = listOf(
 )
 
 @Composable
-fun TimetableContent() {
-    Box(modifier = Modifier.wrapContentSize().verticalScroll(rememberScrollState())) {
-        HourSlots()
-        WekkdayColumns()
+fun TimetableState.TimetableContent() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Header(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+        )
+        Box(modifier = Modifier.wrapContentSize().verticalScroll(rememberScrollState())) {
+            HourSlots()
+            WekkdayColumns()
+        }
     }
 }
 
@@ -92,15 +100,16 @@ private fun calculatePosition(startTime: LocalTimeUtil): Double {
 }
 
 
-
 @Composable
 private fun Lessons(day: Int) {
-    LessonCard(modifier = Modifier
-        .padding(top = calculatePosition(LocalTimeUtil(13, 30)) * hourHeight + 8.dp)
-        .height(1.5 * hourHeight)
+    LessonCard(
+        modifier = Modifier
+            .padding(top = calculatePosition(LocalTimeUtil(13, 30)) * hourHeight + 8.dp)
+            .height(1.5 * hourHeight)
     )
-    LessonCard(modifier = Modifier
-        .padding(top = calculatePosition(LocalTimeUtil(9, 30)) * hourHeight + 8.dp)
-        .height(1.5 * hourHeight)
+    LessonCard(
+        modifier = Modifier
+            .padding(top = calculatePosition(LocalTimeUtil(9, 30)) * hourHeight + 8.dp)
+            .height(1.5 * hourHeight)
     )
 }

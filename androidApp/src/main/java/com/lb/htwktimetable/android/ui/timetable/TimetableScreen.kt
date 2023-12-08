@@ -1,11 +1,10 @@
 package com.lb.htwktimetable.android.ui.timetable
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.*
 import com.lb.htwktimetable.android.ui.timetable.state.TimetableViewModel
 
 @Composable
@@ -21,13 +20,12 @@ fun TimetableScreen(
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
-            TopBar()
-            uiState.Header(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+            uiState.TopBar(
+                nextWeek = { viewModel.showNextWeek() },
+                previousWeek = { viewModel.showPreviousWeek() },
+                currentWeek = { viewModel.showCurrentWeek() }
             )
-            TimetableContent()
+            uiState.TimetableContent()
         }
     }
 }

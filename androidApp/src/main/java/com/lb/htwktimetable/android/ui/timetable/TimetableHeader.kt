@@ -15,7 +15,10 @@ import com.lb.htwktimetable.android.ui.timetable.state.TimetableState
 import com.lb.shared.utils.calendar.Date
 
 @Composable
-fun TimetableState.Header(modifier: Modifier = Modifier) {
+fun TimetableState.Header(
+    modifier: Modifier = Modifier,
+
+) {
     Row(modifier = modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,7 +61,7 @@ private fun HeaderItem(
         ) {
             Text(text = day.take(2), fontSize = 12.sp)
             Text(
-                text = date?.day.toString() ?: "",
+                text = date?.day.toString(),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )

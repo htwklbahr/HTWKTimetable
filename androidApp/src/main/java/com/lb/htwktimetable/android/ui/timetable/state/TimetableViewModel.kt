@@ -7,16 +7,50 @@ import kotlinx.coroutines.flow.*
 
 class TimetableViewModel() : ViewModel() {
 
-    private val week: StateFlow<YearWeek> = MutableStateFlow(LocalDateExt.getCurrentWeek())
+    private val week: MutableStateFlow<YearWeek> = MutableStateFlow(LocalDateExt.getCurrentWeek())
+    private val prevWeek: MutableStateFlow<YearWeek> =
+        MutableStateFlow(LocalDateExt.getWeekByNr(week.value.calendarWeek - 1, week.value.year))
+    private val nextWeek: MutableStateFlow<YearWeek> =
+        MutableStateFlow(LocalDateExt.getWeekByNr(week.value.calendarWeek + 1, week.value.year))
     private val lecture: MutableStateFlow<Nothing?> = MutableStateFlow(null)
 
-    val uiState = combine(week, lecture) { week, _ ->
+    val uiState = combine(week, lecture, prevWeek, nextWeek) { week, _, prev, next ->
         TimetableState(
             week = week,
+            prevWeek = prev,
+            nextWeek = next
         )
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(),
         TimetableState()
     )
+
+    fun showNextWeek() {
+        prevWeek.update { week.value }
+        week.update { nextWeek.value }
+        nextWeek.update { LocalDateExt.getWeekByNr(week.value.calendarWeek + 1, week.value.year) }
+    }
+
+    fun showPreviousWeek() {
+        nextWeek.update { week.value }
+        week.update { prevWeek.value }
+        prevWeek.update { LocalDateExt.getWeekByNr(week.value.calendarWeek - 1, week.value.year) }
+    }
+
+    fun showCurrentWeek() {
+        week.update { LocalDateExt.getCurrentWeek() }
+        prevWeek.update {
+            LocalDateExt.getWeekByNr(
+                week.value.calendarWeek - 1,
+                week.value.year
+            )
+        }
+        nextWeek.update {
+            LocalDateExt.getWeekByNr(
+                week.value.calendarWeek + 1,
+                week.value.year
+            )
+        }
+    }
 }

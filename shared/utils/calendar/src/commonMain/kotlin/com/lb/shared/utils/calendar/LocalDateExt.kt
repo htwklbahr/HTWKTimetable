@@ -45,35 +45,23 @@ object LocalDateExt {
         return prolepticYear and 3 == 0L && (prolepticYear % 100 != 0L || prolepticYear % 400 == 0L)
     }
 
-
-
     /**
      * Function that gets the current week.
      * @return [YearWeek]
      */
     fun getCurrentWeek(): YearWeek {
-        return YearWeek.getByLocalDate(LocalDate(2023, 1, 1))
+        return YearWeek.getByLocalDate(LocalDate(2023, 12, 31))
     }
 
-    fun getWeek1(): YearWeek {
-        return YearWeek.getByLocalDate(LocalDate(2022, 12, 31))
+    /**
+     * Function that gets a week by it's calendar week number and year.
+     * @return [YearWeek]
+     */
+    fun getWeekByNr(): YearWeek {
+        return YearWeek.getByCalendarWeek(52, 2023)
     }
 
-    fun getWeek2(): YearWeek {
-        return YearWeek.getByLocalDate(LocalDate(2022, 12, 25))
-    }
 
-    fun getWeek3(): YearWeek {
-        return YearWeek.getByLocalDate(LocalDate(2022, 12, 26))
-    }
-
-    fun getWeek4(): YearWeek {
-        return YearWeek.getByLocalDate(LocalDate(2024, 2, 29))
-    }
-
-    fun getWeek5(): YearWeek {
-        return YearWeek.getByLocalDate(LocalDate(2024, 12, 30))
-    }
 
 }
 

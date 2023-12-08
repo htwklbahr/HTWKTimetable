@@ -57,8 +57,8 @@ object LocalDateExt {
      * Function that gets a week by it's calendar week number and year.
      * @return [YearWeek]
      */
-    fun getWeekByNr(): YearWeek {
-        return YearWeek.getByCalendarWeek(52, 2023)
+    fun getWeekByNr(calendarWeek: Int, year: Int): YearWeek {
+        return YearWeek.getByCalendarWeek(calendarWeek, year)
     }
 
 

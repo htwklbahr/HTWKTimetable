@@ -11,22 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
-import com.lb.shared.utils.calendar.LocalDateExt
-
-private val weekDays = listOf(
-    "Montag",
-    "Dienstag",
-    "Mittwoch",
-    "Donnerstag",
-    "Freitag",
-    "Samstag",
-    "Sonntag"
-)
-
-val week = LocalDateExt.getCurrentWeek()
+import com.lb.htwktimetable.android.ui.timetable.state.TimetableState
+import com.lb.shared.utils.calendar.Date
 
 @Composable
-fun Header(modifier: Modifier = Modifier) {
+fun TimetableState.Header(modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -34,11 +23,15 @@ fun Header(modifier: Modifier = Modifier) {
             modifier = Modifier.width(48.dp)
         ) {
             Text("KW", fontWeight = FontWeight.Bold)
-            Text("48", fontWeight = FontWeight.Bold)
+            Text(week?.calendarWeek.toString(), fontWeight = FontWeight.Bold)
         }
         LazyRow(verticalAlignment = Alignment.CenterVertically) {
             items(weekDays) { day ->
-                //HeaderItem(day, week.days[weekDays.indexOf(day)], Modifier.fillParentMaxWidth(1 / 7f))
+                HeaderItem(
+                    day = day,
+                    date = week?.days?.get(weekDays.indexOf(day)),
+                    modifier = Modifier.fillParentMaxWidth(1 / 7f)
+                )
             }
         }
     }
@@ -47,7 +40,7 @@ fun Header(modifier: Modifier = Modifier) {
 @Composable
 private fun HeaderItem(
     day: String,
-    date: Int,
+    date: Date?,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -65,7 +58,7 @@ private fun HeaderItem(
         ) {
             Text(text = day.take(2), fontSize = 12.sp)
             Text(
-                text = date.toString(),
+                text = date?.day.toString() ?: "",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -77,6 +70,6 @@ private fun HeaderItem(
 @Composable
 private fun HeaderPreview() {
     Surface {
-        Header(modifier = Modifier.padding(16.dp))
+        //Header(modifier = Modifier.padding(16.dp))
     }
 }

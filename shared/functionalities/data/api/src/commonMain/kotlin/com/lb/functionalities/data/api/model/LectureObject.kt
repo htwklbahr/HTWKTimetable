@@ -15,7 +15,7 @@ data class LectureObject(
     @SerialName("module") val module: String,
     @SerialName("type") val type: String,
     @SerialName("lecturer") val lecturer: String,
-    @SerialName("room") val room: String,
+    @SerialName("rooms") val rooms: String,
     @SerialName("comment") val comment: String,
     @SerialName("booked") val booked: String,
 )
@@ -29,7 +29,7 @@ internal fun LectureObject.toDto(): LectureObjectDto =
         module = module,
         type = type,
         lecturer = lecturer,
-        room = room,
+        rooms = rooms,
         comment = comment,
         booked = booked
     )

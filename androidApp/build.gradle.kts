@@ -42,7 +42,7 @@ android {
 dependencies {
     // KMP modules
     implementation(projects.shared.utils.calendar)
-    implementation(projects.shared.functionalities.data.api)
+    implementation(projects.shared.functionalities.data.database)
 
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)

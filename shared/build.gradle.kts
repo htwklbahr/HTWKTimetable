@@ -10,8 +10,8 @@ kotlin {
         project(":shared:functionalities:lectures"),
         project(":shared:functionalities:data"),
         project(":shared:functionalities:data:api"),
-        project(":shared:functionalities:data:database"),
         project(":shared:functionalities:data:entities"),
+        project(":shared:functionalities:data:database"),
     )
 
     iosX64()

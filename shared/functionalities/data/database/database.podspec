@@ -6,15 +6,15 @@ Pod::Spec.new do |spec|
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = 'Some description for the Shared Module'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/shared.functionalities.data.database.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/database.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '16.0'
                 
                 
-    if !Dir.exist?('build/cocoapods/framework/shared.functionalities.data.database.framework') || Dir.empty?('build/cocoapods/framework/shared.functionalities.data.database.framework')
+    if !Dir.exist?('build/cocoapods/framework/database.framework') || Dir.empty?('build/cocoapods/framework/database.framework')
         raise "
 
-        Kotlin framework 'shared.functionalities.data.database' doesn't exist yet, so a proper Xcode project can't be generated.
+        Kotlin framework 'database' doesn't exist yet, so a proper Xcode project can't be generated.
         'pod install' should be executed after running ':generateDummyFramework' Gradle task:
 
             ./gradlew :shared:functionalities:data:database:generateDummyFramework
@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':shared:functionalities:data:database',
-        'PRODUCT_MODULE_NAME' => 'shared.functionalities.data.database',
+        'PRODUCT_MODULE_NAME' => 'database',
     }
                 
     spec.script_phases = [

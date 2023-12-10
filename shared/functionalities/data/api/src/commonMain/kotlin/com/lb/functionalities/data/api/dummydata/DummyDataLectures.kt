@@ -16,7 +16,7 @@ class DummyLectures{
                 module = "C247 Grundlagen Internet-basierter Informationssysteme IN-B & MI-B 5. FS (wpf)",
                 type = "Vw",
                 lecturer = "Prof. Dr. rer. nat.Thomas Riechert",
-                room = "GU102-S",
+                rooms = "GU102-S",
                 comment = "Projektpräsentationen",
                 booked = "29.08.2023"
             )

@@ -1,0 +1,30 @@
+CREATE TABLE lectures (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    weekday TEXT NOT NULL,
+    weeks TEXT NOT NULL,
+    start TEXT NOT NULL,
+    end TEXT NOT NULL,
+    module TEXT NOT NULL,
+    type TEXT NOT NULL,
+    lecturer TEXT,
+    rooms TEXT,
+    comment TEXT,
+    booked TEXT
+);
+
+getAllLectures:
+SELECT *
+FROM lectures;
+
+getLecturesByDayAndWeek:
+SELECT *
+FROM lectures
+WHERE weeks LIKE ('%' || :week)
+AND weekday = :day;
+
+insertLecture:
+INSERT INTO lectures(weekday, weeks, start, end, module, type, lecturer, rooms, comment, booked)
+VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAllLectures:
+DELETE FROM lectures;

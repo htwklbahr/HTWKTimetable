@@ -8,7 +8,7 @@ data class LectureObjectDto(
     val module: String,
     val type: String,
     val lecturer: String,
-    val room: String,
+    val rooms: String,
     val comment: String,
     val booked: String,
 )

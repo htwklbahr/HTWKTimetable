@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Text(greetApi)
+            Text(String())
             // Indicator for the month and year
             Text("December 2023")
                 .font(.subheadline) // Smaller Font

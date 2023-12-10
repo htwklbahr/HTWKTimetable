@@ -22,6 +22,7 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/versions/9/previous-compilation-data.bin"
         }
     }
     buildTypes {
@@ -41,6 +42,7 @@ android {
 dependencies {
     // KMP modules
     implementation(projects.shared.utils.calendar)
+    implementation(projects.shared.functionalities.data.api)
 
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)

@@ -2,8 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
-    kotlin("plugin.serialization").version("1.9.21")
-
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
@@ -38,6 +37,7 @@ kotlin {
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             implementation("io.ktor:ktor-client-core:$ktorVersion")
             implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
         }
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-android:$ktorVersion")

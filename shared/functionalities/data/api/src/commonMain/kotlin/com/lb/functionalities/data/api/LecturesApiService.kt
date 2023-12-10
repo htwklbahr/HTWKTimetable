@@ -9,7 +9,7 @@ import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class LecturesApi {
+internal class LecturesApiService {
     private val httpClient = HttpClient {
         install(ContentNegotiation) {
             json(Json {

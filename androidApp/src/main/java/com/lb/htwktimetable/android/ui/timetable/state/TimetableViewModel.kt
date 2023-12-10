@@ -1,8 +1,11 @@
 package com.lb.htwktimetable.android.ui.timetable.state
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.lb.functionalities.data.api.LecturesApiHelper
 import com.lb.shared.utils.calendar.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 
 class TimetableViewModel() : ViewModel() {
@@ -51,6 +54,17 @@ class TimetableViewModel() : ViewModel() {
                 week.value.calendarWeek + 1,
                 week.value.year
             )
+        }
+    }
+
+    init {
+        get()
+    }
+
+
+    fun get() {
+        viewModelScope.launch {
+            Log.d("WEEKS", LecturesApiHelper().getAllLectures().toString())
         }
     }
 }

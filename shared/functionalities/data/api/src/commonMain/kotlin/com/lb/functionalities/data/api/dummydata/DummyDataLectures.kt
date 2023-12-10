@@ -5,7 +5,7 @@ import com.lb.functionalities.data.api.model.LectureObject
 /**
  * Class that defines dummy lectures.
  */
-class DummyLectures() {
+class DummyLectures{
     companion object {
         val lectures: List<LectureObject> = listOf(
             LectureObject(

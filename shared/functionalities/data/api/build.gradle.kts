@@ -38,6 +38,9 @@ kotlin {
             implementation("io.ktor:ktor-client-core:$ktorVersion")
             implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+            //other shared modules
+            implementation(projects.shared.functionalities.data.entities)
         }
         androidMain.dependencies {
             implementation("io.ktor:ktor-client-android:$ktorVersion")

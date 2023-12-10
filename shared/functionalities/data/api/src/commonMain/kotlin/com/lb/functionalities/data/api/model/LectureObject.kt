@@ -1,5 +1,6 @@
 package com.lb.functionalities.data.api.model
 
+import com.lb.functionalities.data.entities.LectureObjectDto
 import kotlinx.serialization.*
 
 /**
@@ -18,3 +19,18 @@ data class LectureObject(
     @SerialName("comment") val comment: String,
     @SerialName("booked") val booked: String,
 )
+
+internal fun LectureObject.toDto(): LectureObjectDto =
+    LectureObjectDto(
+        weekday = weekday,
+        weeks = weeks,
+        start = start,
+        end = end,
+        module = module,
+        type = type,
+        lecturer = lecturer,
+        room = room,
+        comment = comment,
+        booked = booked
+    )
+

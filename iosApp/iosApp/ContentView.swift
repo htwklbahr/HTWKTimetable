@@ -4,9 +4,7 @@ import shared
 struct ContentView: View {
     let greet = LocalDateExt().formatDate()
     let greetData = GreetingFuncData().greet()
-    let greetApi = GreetingApi().greet()
-    let greetDB = GreetingDB().greet()
-    let greetEnt = GreetingEnt().greet()
+   
     
     let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     let hours = Array(7...22)

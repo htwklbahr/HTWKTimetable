@@ -2,32 +2,50 @@ package com.lb.htwktimetable.android.ui.timetable.state
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.lb.functionalities.data.api.LecturesApiHelper
+import com.lb.functionalities.data.database.LecturesDataSource
+import com.lb.functionalities.data.entities.LectureObjectDto
 import com.lb.shared.utils.calendar.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class TimetableViewModel() : ViewModel() {
+@HiltViewModel
+class TimetableViewModel @Inject constructor(
+    private val lecturesDb: LecturesDataSource
+): ViewModel() {
 
     private val week: MutableStateFlow<YearWeek> = MutableStateFlow(LocalDateExt.getCurrentWeek())
     private val prevWeek: MutableStateFlow<YearWeek> =
         MutableStateFlow(LocalDateExt.getWeekByNr(week.value.calendarWeek - 1, week.value.year))
     private val nextWeek: MutableStateFlow<YearWeek> =
         MutableStateFlow(LocalDateExt.getWeekByNr(week.value.calendarWeek + 1, week.value.year))
-    private val lecture: MutableStateFlow<Nothing?> = MutableStateFlow(null)
+    private val lectures: MutableStateFlow<List<LectureObjectDto>?> = MutableStateFlow(null)
 
-    val uiState = combine(week, lecture, prevWeek, nextWeek) { week, _, prev, next ->
+    val uiState = combine(week, lectures, prevWeek, nextWeek) { week, lectures, prev, next ->
         TimetableState(
             week = week,
             prevWeek = prev,
-            nextWeek = next
+            nextWeek = next,
+            lectures = lectures
         )
     }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(),
         TimetableState()
     )
+
+    init {
+        getData()
+    }
+
+    fun getData() {
+        viewModelScope.launch {
+            lectures.emit(lecturesDb.fetchLectures())
+            Log.d("WEEKS", lectures.value.toString())
+            Log.d("WEEKS", lecturesDb.getPlaceholderData().toString())
+        }
+    }
 
     fun showNextWeek() {
         prevWeek.update { week.value }
@@ -64,7 +82,7 @@ class TimetableViewModel() : ViewModel() {
 
     fun get() {
         viewModelScope.launch {
-            Log.d("WEEKS", LecturesApiHelper().getAllLectures().toString())
+            //Log.d("WEEKS", LectureDB .toString())
         }
     }
 }

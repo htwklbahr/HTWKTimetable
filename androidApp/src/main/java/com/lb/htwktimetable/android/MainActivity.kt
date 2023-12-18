@@ -12,9 +12,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lb.functionalities.data.database.*
 import com.lb.htwktimetable.android.ui.timetable.TimetableScreen
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+
 
     private val db = LectureDB(DatabaseDriverFactory(this))
 

@@ -41,7 +41,7 @@ fun TimetableState.Header(
 }
 
 @Composable
-private fun HeaderItem(
+private fun TimetableState.HeaderItem(
     day: String,
     date: Date?,
     modifier: Modifier = Modifier
@@ -54,7 +54,7 @@ private fun HeaderItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .background(
-                    color = Color.LightGray,
+                    color = if (date == today) Color(0xFF98FB98) else Color.LightGray,
                     shape = CircleShape
                 )
                 .size(36.dp)

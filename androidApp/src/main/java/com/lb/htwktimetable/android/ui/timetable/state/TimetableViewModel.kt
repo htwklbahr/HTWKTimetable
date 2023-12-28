@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TimetableViewModel @Inject constructor(
     private val lecturesDb: LecturesDataSource
-): ViewModel() {
+) : ViewModel() {
 
     private val week: MutableStateFlow<YearWeek> = MutableStateFlow(LocalDateExt.getCurrentWeek())
     private val prevWeek: MutableStateFlow<YearWeek> =
@@ -27,7 +27,8 @@ class TimetableViewModel @Inject constructor(
             week = week,
             prevWeek = prev,
             nextWeek = next,
-            lectures = lectures
+            lectures = lectures,
+            today = LocalDateExt.today()
         )
     }.stateIn(
         viewModelScope,
@@ -39,24 +40,33 @@ class TimetableViewModel @Inject constructor(
         getData()
     }
 
+
+
+    // Fetch lectures from database.
     fun getData() {
         viewModelScope.launch {
-            lectures.emit(lecturesDb.fetchLectures())
+            val lastWeek = LocalDateExt.lastCalendarWeek(week.value.year)
+            var weekNr = week.value.calendarWeek
+            if (weekNr < 10)
+                weekNr += lastWeek
+            lectures.emit(lecturesDb.getLecturesByWeek(weekNr.toString()))
             Log.d("WEEKS", lectures.value.toString())
-            Log.d("WEEKS", lecturesDb.getPlaceholderData().toString())
         }
     }
 
+    // Functions for navigating between the weeks and fetching the lectures from the database.
     fun showNextWeek() {
         prevWeek.update { week.value }
         week.update { nextWeek.value }
         nextWeek.update { LocalDateExt.getWeekByNr(week.value.calendarWeek + 1, week.value.year) }
+        getData()
     }
 
     fun showPreviousWeek() {
         nextWeek.update { week.value }
         week.update { prevWeek.value }
         prevWeek.update { LocalDateExt.getWeekByNr(week.value.calendarWeek - 1, week.value.year) }
+        getData()
     }
 
     fun showCurrentWeek() {
@@ -73,16 +83,6 @@ class TimetableViewModel @Inject constructor(
                 week.value.year
             )
         }
-    }
-
-    init {
-        get()
-    }
-
-
-    fun get() {
-        viewModelScope.launch {
-            //Log.d("WEEKS", LectureDB .toString())
-        }
+        getData()
     }
 }

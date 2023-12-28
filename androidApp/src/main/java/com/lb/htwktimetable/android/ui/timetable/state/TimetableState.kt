@@ -1,7 +1,7 @@
 package com.lb.htwktimetable.android.ui.timetable.state
 
 import com.lb.functionalities.data.entities.LectureObjectDto
-import com.lb.shared.utils.calendar.YearWeek
+import com.lb.shared.utils.calendar.*
 
 data class TimetableState(
     val week: YearWeek? = null,
@@ -16,5 +16,6 @@ data class TimetableState(
         "Samstag",
         "Sonntag"
     ),
-    val lectures: List<LectureObjectDto>? = null
+    val lectures: List<LectureObjectDto>? = null,
+    val today: Date? = null
 )

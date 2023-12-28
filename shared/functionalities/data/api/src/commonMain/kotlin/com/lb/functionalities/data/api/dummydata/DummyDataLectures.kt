@@ -240,6 +240,30 @@ class DummyLectures{
                 comment = "",
                 booked = "14.09.2023"
             ),
+            LectureObject(
+                weekday = "Freitag",
+                weeks = listOf(42, 44, 46, 48, 50, 54, 56),
+                start = "13:45",
+                end = "15:15",
+                module = "C247 Grundlagen Internet-basierter Informationssysteme IN-B & MI-B 5. FS (wpf)",
+                type = "Sw",
+                lecturer = "Prof. Dr. rer. nat.Thomas Riechert",
+                rooms = "ZU423-L",
+                comment = "",
+                booked = "29.08.2023"
+            ),
+            LectureObject(
+                weekday = "Freitag",
+                weeks = listOf(43, 45, 47, 49, 51, 55, 57),
+                start = "13:45",
+                end = "15:15",
+                module = "C247 Grundlagen Internet-basierter Informationssysteme IN-B & MI-B 5. FS (wpf)",
+                type = "Sw",
+                lecturer = "Prof. Dr. rer. nat.Thomas Riechert",
+                rooms = "ZU423-L",
+                comment = "",
+                booked = "29.08.2023"
+            ),
         )
     }
 }

@@ -10,9 +10,24 @@ object LocalDateExt {
         return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
     }
 
+    fun today(): Date {
+        return now().mapToDate()
+    }
+
     fun stringToLocalTime(timeString: String): LocalTimeUtil {
         val time = timeString.split(":")
         return LocalTimeUtil(time.first().toInt(), time.last().toInt())
+    }
+
+    fun calculateHours(start: String, end: String): Double {
+        val startTime = stringToLocalTime(start)
+        val endTime = stringToLocalTime(end)
+        val startMinutes = startTime.hour * 60 + startTime.minute
+        val endMinutes = endTime.hour * 60 + endTime.minute
+
+        val minuteDifference = endMinutes - startMinutes
+
+        return minuteDifference.toDouble() / 60.0
     }
 
     fun formatDate(): String {
@@ -55,7 +70,7 @@ object LocalDateExt {
      * @param [year]
      * @return 52 or 53
      */
-    internal fun lastCalendarWeek(year: Int): Int {
+    fun lastCalendarWeek(year: Int): Int {
         val firstDayOfYear = LocalDate(year, 1, 1)
         return if (isLeapYear(year)) {
             if (firstDayOfYear.dayOfWeek.isoDayNumber == 3 || firstDayOfYear.dayOfWeek.isoDayNumber == 4) 53

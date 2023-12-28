@@ -9,7 +9,7 @@ import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.*
 import com.lb.htwktimetable.android.ui.timetable.state.TimetableState
-import com.lb.shared.utils.calendar.LocalTimeUtil
+import com.lb.shared.utils.calendar.*
 
 private val hours = buildList {
     for (i in 7..22) {
@@ -18,11 +18,13 @@ private val hours = buildList {
     }
 }
 
-private val hourHeight = 44.dp
+private val hourHeight = 50.dp
 
-private val days = listOf(
-    12, 13, 14, 15, 16, 17, 18
-)
+private fun calculatePosition(startTime: LocalTimeUtil): Double {
+    val hour = startTime.hour - 7
+    val min = startTime.minute.toDouble() / 60
+    return (hour + min)
+}
 
 @Composable
 fun TimetableState.TimetableContent() {
@@ -47,7 +49,7 @@ private fun HourSlots() {
             .fillMaxWidth()
     ) {
         repeat(hours.size) { hour ->
-            Box(modifier = Modifier.height(44.dp)) {
+            Box(modifier = Modifier.height(hourHeight)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(
                         contentAlignment = Alignment.Center,
@@ -66,13 +68,13 @@ private fun HourSlots() {
 }
 
 @Composable
-private fun WekkdayColumns() {
+private fun TimetableState.WekkdayColumns() {
     LazyRow(
         modifier = Modifier
             .padding(start = 48.dp)
             .fillMaxSize()
     ) {
-        items(days) { day ->
+        items(weekDays) { day ->
             Row(
                 modifier = Modifier
                     .fillParentMaxWidth(1 / 7f)
@@ -81,35 +83,22 @@ private fun WekkdayColumns() {
                 Box(
                     modifier = Modifier
                         .width(1.dp)
-                        .height(704.dp)
+                        .height(hourHeight * 16)
                         .background(Color.LightGray)
                 )
                 Box {
-                    Lessons(day)
+                    lectures?.forEach {
+                        if (it.weeks.contains(week?.calendarWeek.toString()) && it.weekday == day) {
+                            LessonCard(
+                                lecture = it,
+                                modifier = Modifier
+                                    .padding(top = calculatePosition(LocalDateExt.stringToLocalTime(it.start)) * hourHeight + 8.dp)
+                                    .height(LocalDateExt.calculateHours(it.start, it.end) * hourHeight)
+                            )
+                        }
+                    }
                 }
             }
-
         }
     }
-}
-
-private fun calculatePosition(startTime: LocalTimeUtil): Double {
-    val hour = startTime.hour - 7
-    val min = startTime.minute.toDouble() / 60
-    return (hour + min)
-}
-
-
-@Composable
-private fun Lessons(day: Int) {
-    LessonCard(
-        modifier = Modifier
-            .padding(top = calculatePosition(LocalTimeUtil(13, 30)) * hourHeight + 8.dp)
-            .height(1.5 * hourHeight)
-    )
-    LessonCard(
-        modifier = Modifier
-            .padding(top = calculatePosition(LocalTimeUtil(9, 30)) * hourHeight + 8.dp)
-            .height(1.5 * hourHeight)
-    )
 }

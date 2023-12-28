@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import com.lb.htwktimetable.android.ui.timetable.state.TimetableState
-import com.lb.shared.utils.calendar.Date
+import com.lb.shared.utils.calendar.DateUtil
 
 @Composable
 fun TimetableState.Header(
@@ -43,7 +43,7 @@ fun TimetableState.Header(
 @Composable
 private fun TimetableState.HeaderItem(
     day: String,
-    date: Date?,
+    date: DateUtil?,
     modifier: Modifier = Modifier
 ) {
     Box(

@@ -10,6 +10,11 @@ object LocalDateExt {
         return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
     }
 
+    fun stringToLocalTime(timeString: String): LocalTimeUtil {
+        val time = timeString.split(":")
+        return LocalTimeUtil(time.first().toInt(), time.last().toInt())
+    }
+
     fun formatDate(): String {
         return now().toString()
     }
@@ -87,7 +92,7 @@ object LocalDateExt {
     }
 }
 
-class LocalTimeUtil(
+data class LocalTimeUtil(
     val hour: Int,
     val minute: Int
 )

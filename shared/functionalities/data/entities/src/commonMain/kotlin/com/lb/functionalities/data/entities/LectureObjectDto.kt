@@ -2,7 +2,7 @@ package com.lb.functionalities.data.entities
 
 data class LectureObjectDto(
     val weekday: String,
-    val weeks: List<Int>,
+    val weeks: String,
     val start: String,
     val end: String,
     val module: String,

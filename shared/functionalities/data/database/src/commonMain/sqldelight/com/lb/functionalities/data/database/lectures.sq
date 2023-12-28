@@ -16,11 +16,10 @@ getAllLectures:
 SELECT *
 FROM lectures;
 
-getLecturesByDayAndWeek:
+getLecturesByWeek:
 SELECT *
 FROM lectures
-WHERE weeks LIKE ('%' || :week)
-AND weekday = :day;
+WHERE weeks LIKE ('%' || :week || '%');
 
 insertLecture:
 INSERT INTO lectures(weekday, weeks, start, end, module, type, lecturer, rooms, comment, booked)

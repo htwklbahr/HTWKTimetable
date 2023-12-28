@@ -23,7 +23,7 @@ data class LectureObject(
 internal fun LectureObject.toDto(): LectureObjectDto =
     LectureObjectDto(
         weekday = weekday,
-        weeks = weeks,
+        weeks = weeks.toString(),
         start = start,
         end = end,
         module = module,

@@ -7,6 +7,7 @@ import com.lb.functionalities.data.entities.LectureObjectDto
 class SqlDelightDataSource(database: LecturesDatabase) : LecturesDataSource {
     private val queries = database.lecturesQueries
     private val api = LecturesApiHelper()
+
     override suspend fun insertLectures(lectures: List<LectureObjectDto>) {
         queries.transaction {
             lectures.forEach { lecture ->
@@ -26,6 +27,11 @@ class SqlDelightDataSource(database: LecturesDatabase) : LecturesDataSource {
         }
     }
 
+    override suspend fun getLecturesByWeek(week: String): List<LectureObjectDto> {
+        fetchLectures()
+        return queries.getLecturesByWeek(week, ::mapToLecture).executeAsList()
+    }
+
     override suspend fun clearDatabase() {
         queries.deleteAllLectures()
     }
@@ -37,7 +43,7 @@ class SqlDelightDataSource(database: LecturesDatabase) : LecturesDataSource {
     private fun insertLecture(lecture: LectureObjectDto) {
         queries.insertLecture(
             weekday = lecture.weekday,
-            weeks = lecture.weeks.toString(),
+            weeks = lecture.weeks,
             start = lecture.start,
             end = lecture.end,
             module = lecture.module,
@@ -64,7 +70,7 @@ class SqlDelightDataSource(database: LecturesDatabase) : LecturesDataSource {
     ): LectureObjectDto {
         return LectureObjectDto(
             weekday = weekday,
-            weeks = listOf(2),
+            weeks = weeks,
             start = start,
             end = end,
             module = module,

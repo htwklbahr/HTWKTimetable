@@ -11,6 +11,8 @@ interface LecturesDataSource {
     @Throws(Exception::class)
     suspend fun fetchLectures(): List<LectureObjectDto>
 
+    suspend fun getLecturesByWeek(week: String): List<LectureObjectDto>
+
     suspend fun clearDatabase()
 
     suspend fun getPlaceholderData(): List<PlaceholderObject>

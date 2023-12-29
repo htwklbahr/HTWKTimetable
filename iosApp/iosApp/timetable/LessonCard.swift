@@ -7,7 +7,7 @@ struct LessonCard: View {
     var body: some View {
         CardView {
             VStack {
-                Text(lecture.module)
+                Text(substring(string: lecture.module))
                     .font(.system(size: 10, weight: .semibold))
                     .kerning(-0.05)
                     .lineSpacing(1)
@@ -43,4 +43,10 @@ struct CardView<Content: View>: View {
             .cornerRadius(8)
             .shadow(radius: 5)
     }
+}
+
+private func substring(string: String) -> String {
+    guard let spaceIndex = string.firstIndex(of: " ") else { return "" }
+    let nextIndex = string.index(after: spaceIndex)
+    return String(string[nextIndex...])
 }

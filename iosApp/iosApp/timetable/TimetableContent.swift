@@ -2,10 +2,12 @@ import Foundation
 import SwiftUI
 import shared
 
+let hourHeight: CGFloat = 52
+let weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+
 struct TimetableContent: View {
+    let lectures: [LectureObjectDto]?
     let hours: [String] = (7...22).map { "\($0):00" }
-    let weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
-    let hourHeight: CGFloat = 52
     
     var body: some View {
         ScrollView(.vertical) {
@@ -20,8 +22,8 @@ struct TimetableContent: View {
                     }
                 }
                 HStack(alignment: .top) {
-                    HourSlots(hours: hours, hourHeight: hourHeight)
-                    WeekdayColumns(weekdays: weekdays, hourHeight: hourHeight)
+                    HourSlots(hours: hours)
+                    WeekdayColumns(lectures: lectures)
                     
                 }
                 .frame(minHeight: UIScreen.main.bounds.height)
@@ -33,7 +35,6 @@ struct TimetableContent: View {
 
 struct HourSlots: View {
     let hours: [String]
-    let hourHeight: CGFloat
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -47,19 +48,39 @@ struct HourSlots: View {
 }
 
 struct WeekdayColumns: View {
-    let weekdays: [String]
-    let hourHeight: CGFloat
-    //let lectures: [LectureObjectDto] // Definieren Sie Ihre Lecture-Struktur entsprechend.
+    let lectures: [LectureObjectDto]?
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(0..<7) { _ in
-                Rectangle()
-                    .fill(Color.clear) // Die Farbe kann angepasst werden, um die Spalten sichtbar zu machen
-                    .frame(maxWidth: .infinity) // Füllt die verfügbare Breite gleichmäßig
-                    .border(Color.gray, width: 0.5) // Fügt eine Grenzlinie zwischen den Spalten hinzu
+            ForEach(weekdays.indices, id: \.self) { index in
+                ZStack(alignment: .top) {
+                    // Background
+                    Rectangle()
+                        .fill(Color.clear)
+                        .frame(maxWidth: .infinity)
+                        .border(Color.gray, width: 0.5)
+                    
+                    // LessonCards for the day.
+                    ZStack(alignment: .top) {
+                        ForEach(lectures?.filter { $0.weekday == weekdays[index] } ?? [], id: \.self) { lecture in
+                            LessonCard(lecture: lecture)
+                                .offset(y: calculateCardOffset(startTime: lecture.start))
+                        }
+                    }
+                }
             }
         }
     }
+}
+
+func calculateCardOffset(startTime: String) -> CGFloat {
+    let start = LocalDateExt().stringToLocalTime(timeString: startTime)
+    let hour = CGFloat(start.hour - 7)
+    let min = CGFloat(start.minute) / 60
+    return hour * hourHeight + min * hourHeight + 26
+}
+
+func calculateCardHeight(start: String, end: String) -> CGFloat {
+    return LocalDateExt().calculateHours(start: start, end: end) * hourHeight
 }
 

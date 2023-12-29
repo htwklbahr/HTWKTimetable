@@ -18,7 +18,7 @@ private val hours = buildList {
     }
 }
 
-private val hourHeight = 48.dp
+private val hourHeight = 64.dp
 
 private fun calculatePosition(startTime: LocalTimeUtil): Double {
     val hour = startTime.hour - 7

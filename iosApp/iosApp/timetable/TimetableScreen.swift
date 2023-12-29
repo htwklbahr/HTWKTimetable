@@ -30,23 +30,12 @@ struct TimetableScreen: View {
                 week: viewModel.timetableState.week,
                 weekDays: viewModel.timetableState.weekDays,
                 today: viewModel.timetableState.today)
-            TimetableContent()
+            TimetableContent(lectures: viewModel.timetableState.lectures)
                 .gesture(dragGesture)
         }
         .onAppear {
             viewModel.setLecturesDataSource(lecturesDataSource: lecturesDataSource)
             viewModel.fetchData()
-        }
-    }
-    
-    private func printPlaceholder() -> Text {
-        switch viewModel.lecture {
-        case .loading:
-            return Text("Loading ...")
-        case .result(let data):
-            return Text(data?.first?.module ?? "no data")
-        case .error(let description):
-            return Text(description)
         }
     }
 }

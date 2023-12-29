@@ -18,7 +18,7 @@ fun LessonCard(
 ) {
     Card(
         modifier = modifier.padding(horizontal = 1.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Cyan)
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF54bef7))
     ) {
         Column(
             modifier = Modifier

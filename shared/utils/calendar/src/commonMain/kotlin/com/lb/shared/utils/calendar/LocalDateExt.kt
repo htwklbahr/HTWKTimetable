@@ -10,7 +10,7 @@ object LocalDateExt {
         return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
     }
 
-    fun today(): Date {
+    fun today(): DateUtil {
         return now().mapToDate()
     }
 
@@ -43,18 +43,18 @@ object LocalDateExt {
     }
 
     /**
-     * Extension function that maps a [LocalDate] to custom [Date] class.
+     * Extension function that maps a [LocalDate] to custom [DateUtil] class.
      */
-    fun LocalDate.mapToDate() = Date(
+    fun LocalDate.mapToDate() = DateUtil(
         day = this.dayOfMonth,
         month = YearMonth(this),
         year = year,
     )
 
     /**
-     * Extension function that maps a [Date] to custom [LocalDate] class.
+     * Extension function that maps a [DateUtil] to custom [LocalDate] class.
      */
-    fun Date.mapToLocalDate() = LocalDate(
+    fun DateUtil.mapToLocalDate() = LocalDate(
         year = year,
         monthNumber = month.monthNr,
         dayOfMonth = day,

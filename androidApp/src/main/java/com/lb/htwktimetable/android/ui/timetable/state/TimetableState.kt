@@ -17,5 +17,5 @@ data class TimetableState(
         "Sonntag"
     ),
     val lectures: List<LectureObjectDto>? = null,
-    val today: Date? = null
+    val today: DateUtil? = null
 )

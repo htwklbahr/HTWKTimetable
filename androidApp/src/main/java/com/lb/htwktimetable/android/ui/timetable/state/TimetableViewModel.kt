@@ -40,8 +40,6 @@ class TimetableViewModel @Inject constructor(
         getData()
     }
 
-
-
     // Fetch lectures from database.
     fun getData() {
         viewModelScope.launch {

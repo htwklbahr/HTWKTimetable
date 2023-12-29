@@ -13,7 +13,7 @@ import kotlinx.datetime.*
 data class YearWeek(
     val year: Int,
     val calendarWeek: Int,
-    val days: List<Date>
+    val days: List<DateUtil>
 ) {
     /**
      * Companion object to initialize [YearWeek] and it's properties.
@@ -99,7 +99,7 @@ data class YearWeek(
          * Extension function that returns the days of the week the date is in.
          * @return days of the week as list
          */
-        private fun LocalDate.getDaysOfWeekOfDate(): List<Date> {
+        private fun LocalDate.getDaysOfWeekOfDate(): List<DateUtil> {
             val firstDay = this.firstDayOfWeek()
             val weekDays = mutableListOf(firstDay.mapToDate())
             for (i in 1..6) {

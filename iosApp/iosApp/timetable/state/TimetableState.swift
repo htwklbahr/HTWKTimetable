@@ -1,6 +1,9 @@
 import Foundation
 import shared
 
+/*
+ State that gathers displayed timetable data.
+ */
 struct TimetableState {
     var week: YearWeek? = nil
     var prevWeek: YearWeek? = nil

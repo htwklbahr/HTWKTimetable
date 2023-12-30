@@ -3,18 +3,6 @@ import shared
 
 extension TimetableScreen {
     
-    enum Loadable {
-        case loading
-        case result([LectureObjectDto]?)
-        case error(String)
-    }
-    
-    enum LoadablePH {
-        case loading
-        case result([PlaceholderObject]?)
-        case error(String)
-    }
-    
     @MainActor
     class TimetableViewModel: ObservableObject {
         private var lecturesDataSource: LecturesDataSource?
@@ -63,38 +51,10 @@ extension TimetableScreen {
             fetchLectures()
         }
         
-        
-        
-        
-        
-        
-        private var lectures = [LectureObjectDto]()
-        @Published private(set) var filteresLectures = [LectureObjectDto]()
-        
-        @Published var lecture = Loadable.loading
-        
+
         init(lecturesDataSource: LecturesDataSource?) {
             self.lecturesDataSource = lecturesDataSource
-            self.loadLectures()
         }
-        
-        func loadLectures() {
-            Task {
-                do {
-                    self.lecture = .loading
-                    let data = try await self.lecturesDataSource?.getLecturesByWeek(week: "48")
-                    self.lecture = .result(data)
-                } catch {
-                    self.lecture = .error(error.localizedDescription)
-                }
-            }
-            
-//            self.lecturesDataSource?.getLectures(completionHandler: { lectures, error in
-//                self.lectures = lectures ?? []
-//                self.filteresLectures = self.lectures
-//            })
-        }
-        
         
         // Set DB to access the queries.
         func setLecturesDataSource(lecturesDataSource: LecturesDataSource) {

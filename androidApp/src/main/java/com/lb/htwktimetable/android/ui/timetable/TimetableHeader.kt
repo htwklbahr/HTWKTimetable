@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.*
 import com.lb.htwktimetable.android.ui.timetable.state.TimetableState
 import com.lb.shared.utils.calendar.DateUtil
 
+/**
+ * Composable for header displaying calendar week and days.
+ */
 @Composable
 fun TimetableState.Header(
     modifier: Modifier = Modifier,
@@ -54,6 +57,7 @@ private fun TimetableState.HeaderItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .background(
+                    // Highlights current day.
                     color = if (date == today) Color(0xFF98FB98) else Color.LightGray,
                     shape = CircleShape
                 )

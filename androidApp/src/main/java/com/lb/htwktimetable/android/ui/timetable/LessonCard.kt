@@ -11,6 +11,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import com.lb.functionalities.data.entities.LectureObjectDto
 
+/**
+ * Composable for schedule cards.
+ */
 @Composable
 fun LessonCard(
     lecture: LectureObjectDto,

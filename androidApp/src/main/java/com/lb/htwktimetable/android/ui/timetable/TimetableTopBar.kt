@@ -13,6 +13,11 @@ import androidx.compose.ui.unit.*
 import com.lb.htwktimetable.android.ui.timetable.state.TimetableState
 import com.lb.shared.utils.calendar.LocalDateExt
 
+/**
+ * Composable for displaying topbar with month and year.
+ * Has a button for navigating back to current day.
+ * Has buttons for navigating between weeks.
+ */
 @Composable
 fun TimetableState.TopBar(
     nextWeek: () -> Unit,

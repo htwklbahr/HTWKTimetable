@@ -19,10 +19,16 @@ internal class LecturesApiService {
         }
     }
 
+    /**
+     * Function for getting data from an API. Can be adjusted for own use.
+     */
     suspend fun getPlaceholderData(): List<PlaceholderObject> {
         return httpClient.get("https://jsonplaceholder.typicode.com/albums").body()
     }
 
+    /**
+     * Gets dummy data since there is no actual API for the lecture data.
+     */
     fun getDummyLectureData(): List<LectureObject> {
         return DummyLectures.lectures
     }

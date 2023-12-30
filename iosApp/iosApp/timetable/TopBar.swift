@@ -1,13 +1,14 @@
 import SwiftUI
 import shared
 
+/*
+ View for the Topbar showing the month, year and a button to return to current day.
+ */
 struct TopBar: View {
     let week: YearWeek?
     let action: () -> Void
     
     var body: some View {
-        
-        
         HStack {
             if let firstDay = week?.days.first {
                let month = firstDay.month.name

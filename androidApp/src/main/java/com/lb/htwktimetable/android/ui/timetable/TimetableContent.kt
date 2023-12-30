@@ -20,12 +20,18 @@ private val hours = buildList {
 
 private val hourHeight = 64.dp
 
+/**
+ * Calculates the vertical position of a lecture depending on its start time.
+ */
 private fun calculatePosition(startTime: LocalTimeUtil): Double {
     val hour = startTime.hour - 7
     val min = startTime.minute.toDouble() / 60
     return (hour + min)
 }
 
+/**
+ * Composable that wraps the actual timetable content.
+ */
 @Composable
 fun TimetableState.TimetableContent() {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -41,6 +47,9 @@ fun TimetableState.TimetableContent() {
     }
 }
 
+/**
+ * Composable for hour column on the left.
+ */
 @Composable
 private fun HourSlots() {
     Column(
@@ -67,6 +76,9 @@ private fun HourSlots() {
     }
 }
 
+/**
+ * Composable for timetable day-columns with its schedules.
+ */
 @Composable
 private fun TimetableState.WekkdayColumns() {
     LazyRow(

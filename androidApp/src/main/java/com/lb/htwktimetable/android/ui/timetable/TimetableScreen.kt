@@ -8,6 +8,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.lb.htwktimetable.android.ui.timetable.state.TimetableViewModel
 
+/**
+ * Composable that gathers all components of the timetable screen.
+ */
 @Composable
 fun TimetableScreen(
     viewModel: TimetableViewModel = hiltViewModel()

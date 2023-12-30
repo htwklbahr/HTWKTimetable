@@ -27,6 +27,9 @@ class SqlDelightDataSource(database: LecturesDatabase) : LecturesDataSource {
         }
     }
 
+    /**
+     * Overrides the data in the database and fetches the data.
+     */
     override suspend fun getLecturesByWeek(week: String): List<LectureObjectDto> {
         fetchLectures()
         return queries.getLecturesByWeek(week, ::mapToLecture).executeAsList()

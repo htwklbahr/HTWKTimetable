@@ -1,6 +1,9 @@
 import SwiftUI
 import shared
 
+/*
+ View that gathers the seperate parts of the timetable.
+ */
 struct TimetableScreen: View {
     private var lecturesDataSource: LecturesDataSource
     
@@ -35,7 +38,7 @@ struct TimetableScreen: View {
         }
         .onAppear {
             viewModel.setLecturesDataSource(lecturesDataSource: lecturesDataSource)
-            viewModel.fetchData()
+            viewModel.fetchData() // Load data when View is loaded.
         }
     }
 }

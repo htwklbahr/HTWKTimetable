@@ -5,6 +5,9 @@ import shared
 let hourHeight: CGFloat = 52
 let weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 
+/*
+ View for the timetable with its columns and schedules.
+ */
 struct TimetableContent: View {
     let lectures: [LectureObjectDto]?
     let hours: [String] = (7...22).map { "\($0):00" }
@@ -21,6 +24,7 @@ struct TimetableContent: View {
                             .frame(height: 1)
                     }
                 }
+                // Timetable.
                 HStack(alignment: .top) {
                     HourSlots(hours: hours)
                     WeekdayColumns(lectures: lectures)
@@ -33,6 +37,9 @@ struct TimetableContent: View {
     }
 }
 
+/*
+ View for the hours on left side of the screen.
+ */
 struct HourSlots: View {
     let hours: [String]
     
@@ -47,6 +54,9 @@ struct HourSlots: View {
     }
 }
 
+/*
+ View for the days with its schedules.
+ */
 struct WeekdayColumns: View {
     let lectures: [LectureObjectDto]?
     
@@ -73,6 +83,9 @@ struct WeekdayColumns: View {
     }
 }
 
+/*
+ Calculates the vertical position of a lecture depending on its starttime.
+ */
 func calculateCardOffset(startTime: String) -> CGFloat {
     let start = LocalDateExt().stringToLocalTime(timeString: startTime)
     let hour = CGFloat(start.hour - 7)
@@ -80,6 +93,9 @@ func calculateCardOffset(startTime: String) -> CGFloat {
     return hour * hourHeight + min * hourHeight + 26
 }
 
+/*
+ Calculates height of a lecture card with Calendar Util function depending on start and endtime.
+ */
 func calculateCardHeight(start: String, end: String) -> CGFloat {
     return LocalDateExt().calculateHours(start: start, end: end) * hourHeight
 }

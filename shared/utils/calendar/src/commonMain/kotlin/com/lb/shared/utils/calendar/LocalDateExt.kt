@@ -4,8 +4,6 @@ import kotlinx.datetime.*
 
 object LocalDateExt {
 
-    // basic extension functions
-
     fun now(): LocalDate{
         return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
     }
@@ -14,11 +12,17 @@ object LocalDateExt {
         return now().mapToDate()
     }
 
+    /**
+     * Maps time from string to [LocalTimeUtil]
+     */
     fun stringToLocalTime(timeString: String): LocalTimeUtil {
         val time = timeString.split(":")
         return LocalTimeUtil(time.first().toInt(), time.last().toInt())
     }
 
+    /**
+     * Calculate Double from hours.
+     */
     fun calculateHours(start: String, end: String): Double {
         val startTime = stringToLocalTime(start)
         val endTime = stringToLocalTime(end)
@@ -28,10 +32,6 @@ object LocalDateExt {
         val minuteDifference = endMinutes - startMinutes
 
         return minuteDifference.toDouble() / 60.0
-    }
-
-    fun formatDate(): String {
-        return now().toString()
     }
 
     /**
@@ -60,6 +60,9 @@ object LocalDateExt {
         dayOfMonth = day,
     )
 
+    /**
+     * Function that checks if the [year] is a leap year.
+     */
     fun isLeapYear(year: Int): Boolean {
         val prolepticYear: Long = year.toLong()
         return prolepticYear and 3 == 0L && (prolepticYear % 100 != 0L || prolepticYear % 400 == 0L)
@@ -107,6 +110,9 @@ object LocalDateExt {
     }
 }
 
+/**
+ * Data class for time.
+ */
 data class LocalTimeUtil(
     val hour: Int,
     val minute: Int

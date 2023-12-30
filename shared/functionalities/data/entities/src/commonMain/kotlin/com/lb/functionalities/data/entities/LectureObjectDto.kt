@@ -1,5 +1,8 @@
 package com.lb.functionalities.data.entities
 
+/**
+ * Data class for using the lecture data everywhere needed.
+ */
 data class LectureObjectDto(
     val weekday: String,
     val weeks: String,

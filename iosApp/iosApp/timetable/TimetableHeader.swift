@@ -2,6 +2,9 @@ import Foundation
 import SwiftUI
 import shared
 
+/*
+ View for the header showing the week with its days.
+ */
 struct TimetableHeader: View {
     let week: YearWeek?
     let weekDays: [String]
@@ -35,6 +38,7 @@ struct HeaderItem: View {
     var body: some View {
         ZStack {
             Circle()
+                // Highlight the current day.
                 .fill(date == today ? Color.teal.opacity(0.5) : Color.gray.opacity(0.5))
                 .frame(width: 36, height: 36)
             VStack {
